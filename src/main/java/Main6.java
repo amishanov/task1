@@ -37,8 +37,8 @@ public class Main6 {
                             .forEach(System.out::println);
                     break;
                 case "4":
-                    try(FileOutputStream file = new FileOutputStream("people.txt");
-                        ObjectOutputStream oos = new ObjectOutputStream(file)) {
+                    try (FileOutputStream file = new FileOutputStream("people.txt");
+                         ObjectOutputStream oos = new ObjectOutputStream(file)) {
                         oos.writeObject(people);
                         oos.flush();
                     } catch (IOException ex) {
@@ -52,6 +52,7 @@ public class Main6 {
             }
         }
     }
+
     public static <T> Predicate<T> distinctByKey(
             Function<? super T, ?> keyExtractor) {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
