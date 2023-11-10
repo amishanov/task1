@@ -9,7 +9,7 @@ public class Main8 {
         ArrayList<Person> people = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         Menu menu = new Menu(scanner);
-        while(true) {
+        while (true) {
             menu.show();
             Exec currExec = menu.input();
             try {
@@ -29,6 +29,7 @@ public class Main8 {
         private String name;
         // Доступное действие
         private Exec exec;
+
         public MenuItem(String name, Exec exec) {
             this.name = name;
             this.exec = exec;
@@ -39,6 +40,7 @@ public class Main8 {
         private List<MenuItem> items;
         private Scanner scanner;
         private int currState;
+
         public Menu(Scanner scanner) {
             this.scanner = scanner;
             items = new ArrayList<>();
@@ -52,7 +54,8 @@ public class Main8 {
             items.add(new MenuItem("1.Add",
                     data -> {
                         System.out.println("Введите имя и фамилию");
-                        data.add(new Person(scanner.next(), scanner.next()));}));
+                        data.add(new Person(scanner.next(), scanner.next()));
+                    }));
             items.add(new MenuItem("2.Show",
                     data -> data.forEach(System.out::println)));
             items.add(new MenuItem("3.Show sorted unique",
@@ -74,13 +77,13 @@ public class Main8 {
         }
 
         public Exec input() {
-            currState = scanner.nextInt()-1;
+            currState = scanner.nextInt() - 1;
             return items.get(currState).exec;
         }
 
         private void writeToFile(List<Person> data) {
-            try(FileOutputStream file = new FileOutputStream("people.txt");
-                ObjectOutputStream oos = new ObjectOutputStream(file)) {
+            try (FileOutputStream file = new FileOutputStream("people.txt");
+                 ObjectOutputStream oos = new ObjectOutputStream(file)) {
                 oos.writeObject(data);
                 oos.flush();
             } catch (IOException ex) {
@@ -91,8 +94,8 @@ public class Main8 {
         private List<Person> readFromFile(List<Person> data) {
             data.clear();
             List<Person> newData = new ArrayList<>();
-            try(FileInputStream file = new FileInputStream("people.txt");
-                ObjectInputStream ois = new ObjectInputStream(file)) {
+            try (FileInputStream file = new FileInputStream("people.txt");
+                 ObjectInputStream ois = new ObjectInputStream(file)) {
                 newData = (List<Person>) ois.readObject();
                 data.addAll(newData);
 //                System.out.println(data.get(0));
@@ -104,6 +107,7 @@ public class Main8 {
             return data;
         }
     }
+
     public static <T> Predicate<T> distinctByKey(
             Function<? super T, ?> keyExtractor) {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
